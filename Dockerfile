@@ -10,6 +10,6 @@ RUN pip install pytest
 
 COPY app/ .
 
-COPY tests/ app/tests/
+COPY test/ app/tests/
 
 CMD [ "python", "app.py" ]
