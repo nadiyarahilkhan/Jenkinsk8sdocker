@@ -25,16 +25,6 @@ pipeline {
                     echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io
                     docker push $DOCKER_BFLASK_IMAGE
                     """
-
-                    // Create Kubernetes secret for Docker registry
-                    sh """
-                    kubectl create secret docker-registry regcred \
-                        --namespace ${K8S_NAMESPACE} \
-                        --docker-username=\$DOCKER_USERNAME \
-                        --docker-password=\$DOCKER_PASSWORD \
-                        --docker-server=docker.io \
-                        --dry-run=client -o yaml | kubectl apply -f -
-                    """
                 }
 
                 // Apply Kubernetes manifest
