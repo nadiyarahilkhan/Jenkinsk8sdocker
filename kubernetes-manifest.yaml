@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
         - name: my-flask-app-container
-          image:
-            "{ $PULL_IMAGE }": null
+          image: {{PULL_IMAGE}}
           ports:
             - containerPort: 80
 
