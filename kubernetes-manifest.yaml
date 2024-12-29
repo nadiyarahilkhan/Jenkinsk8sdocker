@@ -18,7 +18,7 @@ spec:
       containers:
         - name: my-flask-app-container
           image:
-            "{ $DOCKER_BFLASK_IMAGE }": null
+            "{ $PULL_IMAGE }": null
           ports:
             - containerPort: 80
 
