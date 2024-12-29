@@ -4,7 +4,7 @@ pipeline {
     environment {
         K8S_NAMESPACE = 'default' // Kubernetes namespace
         MANIFEST_FILE = 'kubernetes-manifest.yaml' // Kubernetes manifest file
-        DOCKER_IMAGE = env.DOCKER_BFLASK_IMAGE ?: 'default-image:latest' // Fallback Docker image
+        DOCKER_IMAGE = env.DOCKER_BFLASK_IMAGE  // Fallback Docker image
     }
 
     stages {
