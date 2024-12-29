@@ -4,7 +4,7 @@ pipeline {
     environment {
         K8S_NAMESPACE = 'default' // Kubernetes namespace
         MANIFEST_FILE = 'kubernetes-manifest.yaml' // Kubernetes manifest file
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('7513358a-a8d8-4424-af46-a366634f798a') // Service account key for GCP
+       // DOCKER_IMAGE = 'env.DOCKER_BFLASK_IMAGE'  // Fallback Docker image
     }
 
     stages {
@@ -26,38 +26,8 @@ pipeline {
                     docker push $DOCKER_BFLASK_IMAGE
                     """
                 }
-            }
-        }
 
-        stage('Terraform Init') {
-            steps {
-                script {
-                    // Initialize Terraform for GCP
-                    sh 'terraform init'
-                }
-            }
-        }
-
-        stage('Terraform Plan') {
-            steps {
-                script {
-                    // Generate Terraform execution plan for GCP resources
-                    sh 'terraform plan -out=tfplan'
-                }
-            }
-        }
-
-        stage('Terraform Apply') {
-            steps {
-                script {
-                    // Apply Terraform plan to provision GCP infrastructure
-                    sh 'terraform apply -auto-approve tfplan'
-                }
-            }
-        }
-
-        stage('Kubernetes Deployment') {
-            steps {
+                // Apply Kubernetes manifest
                 withCredentials([file(credentialsId: '00d78077-0b4f-4bfb-9099-4973a46115c8', variable: 'KUBECONFIG')]) {
                     script {
                         sh """
