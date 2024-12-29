@@ -33,7 +33,7 @@ pipeline {
                         sh """
                         sed \
                             -e "s|{{NAMESPACE}}|${K8S_NAMESPACE}|g" \
-                            -e "s|{{PULL_IMAGE}}|${DOCKER_IMAGE}|g" \
+                            -e "s|{{$DOCKER_BFLASK_IMAGE}}|${$DOCKER_BFLASK_IMAGE}|g" \
                             ${MANIFEST_FILE} \
                         | kubectl apply -f -
                         """
