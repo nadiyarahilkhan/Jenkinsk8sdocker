@@ -4,7 +4,7 @@ pipeline {
     environment {
         K8S_NAMESPACE = 'default' // Kubernetes namespace
         MANIFEST_FILE = 'kubernetes-manifest.yaml' // Kubernetes manifest file
-        DOCKER_IMAGE = 'env.DOCKER_BFLASK_IMAGE'  // Fallback Docker image
+       // DOCKER_IMAGE = 'env.DOCKER_BFLASK_IMAGE'  // Fallback Docker image
     }
 
     stages {
@@ -33,7 +33,7 @@ pipeline {
                         sh """
                         sed \
                             -e "s|{{NAMESPACE}}|${K8S_NAMESPACE}|g" \
-                            -e "s|{{$DOCKER_BFLASK_IMAGE}}|${DOCKER_IMAGE}|g" \
+                            -e "s|{{$PULL_IMAGE}}|${DOCKER_BFLASK_IMAGE}|g" \
                             ${MANIFEST_FILE} \
                         | kubectl apply -f -
                         """
